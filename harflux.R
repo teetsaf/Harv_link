@@ -79,7 +79,7 @@ plot(d6$YR, d6$calendarflux, pch=24,bg='red',  xlab="",ylab="",
 mtext(expression("Net ecosystem exchange  " ~ (g~C~m^{-2})),side=4,col="red",line=4,cex=1.2) 
 axis(4, ylim=c(1380,3550), col="red",col.axis="red",cex=1.25)
 #abline(v=2007.5,lty=2)
-x=1992:2013
+x=1990:2013
 axis(side = 1, at = x, labels = labels, tck = -0.02)
 #arrows(c(2007,2008),c(355.0,355.0),c(2002,2013),c(355.0,355.0), lwd=2)
 #text(2006.5,344,'(a)',cex=1.25)
@@ -91,6 +91,34 @@ legend("topleft",legend=c("Woody biomass ",expression("NEE")),
 
 
 head(flux)
+
+## Plot first set of data and draw its axis
+plot(d6$YR, d6$compinc, pch=21, xlab="Year", ylab=expression("Woody biomass increment  " ~ (g~C~m^{-2})),type="o",
+     col="black",cex.lab=1.25,cex.axis=1.1,cex=1.2,xaxt = "n",bg="black")
+labels=c(1990,"",1992,"",1994,"",1996,"",1998,"",2000,"",2002,"",2004,"",2006,"",2008,"",2010,"",2012,"")
+#text(1996:2015, par("usr")[3], srt = 45,adj=c(1.7,0.3),labels = labels, xpd = TRUE)
+## Allow a second plot on the same graph
+par(new=TRUE)
+
+## Plot the second plot and put axis scale on right
+plot(d6$YR, d6$f2Cflux, pch=24,bg='red',  xlab="",ylab="", 
+     axes=FALSE, type="b", cex=1.2,col="red",cex.lab=1.25,cex.axis=1.25,lty=1,lwd=1.5)
+## a little farther out (line=4) to make room for labels
+mtext(expression("Net ecosystem exchange  " ~ (g~C~m^{-2})),side=4,col="red",line=4,cex=1.2) 
+axis(4, ylim=c(1380,3550), col="red",col.axis="red",cex=1.25)
+#abline(v=2007.5,lty=2)
+x=1990:2013
+axis(side = 1, at = x, labels = labels, tck = -0.02)
+#arrows(c(2007,2008),c(355.0,355.0),c(2002,2013),c(355.0,355.0), lwd=2)
+#text(2006.5,344,'(a)',cex=1.25)
+#text(2008.5,344,'(b)',cex=1.25)
+
+## Add Legend
+legend("topleft",legend=c("Woody biomass ",expression("NEE")),
+       text.col=c("black","red"),pch=c(19,17),col=c("black","red"),bg=c("black","red"),cex=1.2,bty='n')
+
+
+
 
 
 
@@ -124,7 +152,7 @@ doy=read.csv('Bartlett_shift_20180917.csv')
 head(doy)
 shift=read.csv('Bartlett_shift_20180917.csv')
 head(shift)
-shift2=subset(shift,shift$shft_days>-315)
+shift2=subset(shift,shift$shft_days>-365)
 shift2$length='day'
 shift3=subset(shift2,shift2$jday %in% c('365','335','305','274','244','213','182','152','121','91','60'))
 shift3$length='month'
